@@ -2,11 +2,8 @@ package commands
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"strings"
-
-	"gopkg.in/yaml.v2"
 )
 
 type EnvironmentToYAML struct {
@@ -14,7 +11,7 @@ type EnvironmentToYAML struct {
 	OutputFile string `long:"output-file" description:"output file for yaml" required:"true"`
 }
 
-//Execute - generates structs
+//Execute - creates yaml file based on enviroment variable prefix
 func (c *EnvironmentToYAML) Execute([]string) error {
 	dataType := make(map[string]interface{})
 	thePrefix := fmt.Sprintf("%s_", c.EnvPrefix)
@@ -25,17 +22,8 @@ func (c *EnvironmentToYAML) Execute([]string) error {
 			dataType[key] = keyValue[1]
 		}
 	}
-
-	return writeYamlFile(c.OutputFile, dataType)
-}
-
-func writeYamlFile(targetFile string, dataType map[string]interface{}) error {
 	if len(dataType) > 0 {
-		data, err := yaml.Marshal(dataType)
-		if err != nil {
-			return err
-		}
-		return ioutil.WriteFile(targetFile, data, 0755)
+		return writeYamlFile(c.OutputFile, dataType)
 	}
-	return ioutil.WriteFile(targetFile, []byte(""), 0755)
+	return fmt.Errorf("No environment variables with prefix: %s", c.EnvPrefix)
 }
