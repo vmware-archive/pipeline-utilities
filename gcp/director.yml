@@ -1,0 +1,68 @@
+iaas-configuration:
+  project: ((gcp_project))
+  associated_service_account: ((gcp_service_account))
+  auth_json: ((gcp_auth_json))
+director-configuration:
+  ntp_servers_string: ntp.ubuntu.com
+  metrics_ip:
+  resurrector_enabled: false
+  director_hostname:
+  max_threads:
+  custom_ssh_banner:
+  disable_dns_release: false
+  opentsdb_ip:
+  director_worker_count: 5
+  post_deploy_enabled: false
+  bosh_recreate_on_next_deploy: false
+  retry_bosh_deploys: false
+  keep_unreachable_vms: false
+  database_type: internal
+  blobstore_type: local
+  hm_pager_duty_options:
+    enabled: false
+  hm_emailer_options:
+    enabled: false
+security-configuration:
+  trusted_certificates:
+  generate_vm_passwords: true
+syslog-configuration:
+  enabled: false
+az-configuration:
+- name: us-west1-a
+- name: us-west1-b
+- name: us-west1-c
+networks-configuration:
+  icmp_checks_enabled: false
+  networks:
+  - name: management-network
+    subnets:
+    - iaas_identifier: ((gcp_management_network))
+      cidr: 10.0.0.0/26
+      reserved_ip_ranges: 10.0.0.0-10.0.0.10
+      gateway: 10.0.0.1
+      dns: 8.8.8.8
+      availability_zone_names: &1
+      - us-west1-a
+      - us-west1-b
+      - us-west1-c
+  - name: pas-network
+    subnets:
+    - iaas_identifier: ((gcp_pas_network))
+      cidr: 10.0.4.0/24
+      reserved_ip_ranges: 10.0.4.0-10.0.4.10
+      gateway: 10.0.4.1
+      dns: 8.8.8.8
+      availability_zone_names: *1
+  - name: services-network
+    subnets:
+    - iaas_identifier: ((gcp_services_network))
+      cidr: 10.0.8.0/24
+      reserved_ip_ranges: 10.0.8.0-10.0.8.10
+      gateway: 10.0.8.1
+      dns: 8.8.8.8
+      availability_zone_names: *1
+network-assignment:
+  singleton_availability_zone:
+    name: us-west1-a
+  network:
+    name: management-network
