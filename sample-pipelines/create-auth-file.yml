@@ -1,0 +1,33 @@
+resources:
+- name: pipeline-utilities
+  type: git
+  source:
+    uri: https://github.com/calebwashburn/pipeline-utilities.git
+
+jobs:
+- name: sample
+  plan:
+  - aggregate:
+    - get: pipeline-utilities
+
+  - task: create-auth-config
+    file: pipeline-utilities/tasks/create-auth-config.yml
+    params:
+      OPSMAN_URL: foo.com
+      OPSMAN_SKIP_SSL_VALIDATION: true
+      OPSMAN_USERNAME: admin
+      OPSMAN_PASSWORD: pwd
+      OPSMAN_DECRYPTION_PASSPHRASE: pwd
+
+  - task: echo auth sample
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: cwashburn/pipeline-utilities
+      inputs:
+      - name: auth
+      run:
+        path: cat
+        args: [ "auth/auth.yml" ]

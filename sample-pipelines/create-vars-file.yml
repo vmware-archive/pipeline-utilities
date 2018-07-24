@@ -1,0 +1,34 @@
+resources:
+- name: pipeline-utilities
+  type: git
+  source:
+    uri: https://github.com/calebwashburn/pipeline-utilities.git
+
+jobs:
+- name: sample
+  plan:
+  - aggregate:
+    - get: pipeline-utilities
+
+  - task: create-vars
+    file: pipeline-utilities/tasks/create-product-secrets.yml
+    params:
+      PRODUCT_key: hello
+      PRODUCT_secret: bar
+      PRODUCT_multiline: |
+        -----BEGIN CERTIFICATE-----
+        asdfsadff
+        -----END CERTIFICATE-----
+
+  - task: echo vars
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: cwashburn/pipeline-utilities
+      inputs:
+      - name: secrets
+      run:
+        path: cat
+        args: [ "secrets/product.yml" ]
