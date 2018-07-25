@@ -2,7 +2,7 @@ resources:
 - name: pipeline-utilities
   type: git
   source:
-    uri: https://github.com/calebwashburn/pipeline-utilities.git
+    uri: https://github.com/pivotalservices/pipeline-utilities.git
 
 jobs:
 - name: sample
@@ -26,7 +26,7 @@ jobs:
       image_resource:
         type: docker-image
         source:
-          repository: cwashburn/pipeline-utilities
+          repository: pivotalservices/pipeline-utilities
       inputs:
       - name: secrets
       run:

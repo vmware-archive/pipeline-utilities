@@ -3,9 +3,9 @@ FROM golang:1.9-alpine AS compilation
 RUN apk update && apk add bash git unzip curl
 
 ENV CGO_ENABLED=0
-COPY . $GOPATH/src/github.com/calebwashburn/pipeline-utilities
-RUN go get -a -t github.com/calebwashburn/pipeline-utilities/...
-RUN go build github.com/calebwashburn/pipeline-utilities/cmd/pipeline-utilities
+COPY . $GOPATH/src/github.com/pivotalservices/pipeline-utilities
+RUN go get -a -t github.com/pivotalservices/pipeline-utilities/...
+RUN go build github.com/pivotalservices/pipeline-utilities/cmd/pipeline-utilities
 
 FROM alpine
 

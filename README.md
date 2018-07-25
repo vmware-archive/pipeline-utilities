@@ -19,9 +19,9 @@ To build the binary yourself, follow these steps:
 * Install `Go`.
 * Install [dep](https://github.com/golang/dep), a dependency management tool for Go.
 * Clone the repo:
-  - `mkdir -p $(go env GOPATH)/src/github.com/calebwashburn`
-  - `cd $(go env GOPATH)/src/github.com/calebwashburn`
-  - `git clone git@github.com:calebwashburn/pipeline-utilities.git`
+  - `mkdir -p $(go env GOPATH)/src/github.com/pivotalservices`
+  - `cd $(go env GOPATH)/src/github.com/pivotalservices`
+  - `git clone git@github.com:pivotalservices/pipeline-utilities.git`
 * Install dependencies:
   - `cd pipeline-utilities`
   - `dep ensure`

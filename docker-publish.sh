@@ -1,2 +1,2 @@
-docker build -t cwashburn/pipeline-utilities .
-docker push cwashburn/pipeline-utilities
+docker build -t pivotalservices/pipeline-utilities .
+docker push pivotalservices/pipeline-utilities

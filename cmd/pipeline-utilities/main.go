@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/calebwashburn/pipeline-utilities/commands"
+	"github.com/pivotalservices/pipeline-utilities/commands"
 	flags "github.com/jessevdk/go-flags"
 )
 
