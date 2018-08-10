@@ -1,14 +1,5 @@
-FROM golang:1.9-alpine AS compilation
-
-RUN apk update && apk add bash git unzip curl
-
-ENV CGO_ENABLED=0
-COPY . $GOPATH/src/github.com/pivotalservices/pipeline-utilities
-RUN go get -a -t github.com/pivotalservices/pipeline-utilities/...
-RUN go build github.com/pivotalservices/pipeline-utilities/cmd/pipeline-utilities
-
 FROM alpine
 
-RUN apk update && apk add bash unzip curl
+RUN apk update && apk add bash
 
-COPY --from=compilation /go/bin/pipeline-utilities /usr/bin
+COPY pipeline-utilities-linux /usr/bin/pipeline-utilities
