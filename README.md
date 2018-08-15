@@ -79,3 +79,43 @@ Help Options:
   --decryption-passphrase= OpsManager Decryption Passphrase [$OPSMAN_DECRYPTION_PASSPHRASE]
   --output-file=           output file for yaml
 ```
+
+## `pas-uaa`
+
+`pas-uaa` creates or updates uaa clients in PAS uaa based on configuration file
+
+### Command Usage
+
+```
+Usage:
+  main [OPTIONS] pas-uaa [pas-uaa-OPTIONS]
+
+Help Options:
+  -h, --help           Show this help message
+
+[pas-uaa command options]
+      --auth-file=      path to auth file (default: auth/auth.yml)
+  -c, --config=    path to config file
+  -l, --vars-file= path to vars file
+```
+
+### Sample Config
+
+```
+target: uaa.((system-domain))
+skip_ssl_validation: true
+verbose: false
+clients:
+  foo:
+    secret: ((foo-secret))
+    grant_types: ["client_credentials","refresh_token"]
+    scope: ["doppler.firehose","cloud_controller.admin_read_only","oauth.login"]
+    authorities: ["doppler.firehose","cloud_controller.admin_read_only","openid,oauth.approvals"]
+    access_token_validity: 1209600
+  hello:
+    secret: ((hello-secret))
+    grant_types: ["client_credentials","refresh_token"]
+    scope: ["doppler.firehose","cloud_controller.admin_read_only","oauth.login"]
+    authorities: ["doppler.firehose","cloud_controller.admin_read_only","openid,oauth.approvals"]
+    access_token_validity: 1209600
+```

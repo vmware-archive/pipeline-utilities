@@ -1,5 +1,7 @@
 package commands
 
+import "github.com/pivotalservices/pipeline-utilities/opsman"
+
 type CreateOpsmanAuth struct {
 	URL                  string `long:"url" env:"OPSMAN_URL" description:"OpsManager URL" required:"true"`
 	SkipSSLValidation    bool   `long:"skip-ssl-validation" env:"OPSMAN_SKIP_SSL_VALIDATION" description:"Skip SSL Validation when interacting with OpsManager"`
@@ -11,21 +13,9 @@ type CreateOpsmanAuth struct {
 	OutputFile           string `long:"output-file" description:"output file for yaml" required:"true"`
 }
 
-type AuthConfig struct {
-	OpsmanURL         string `yaml:"opsman_url"`
-	SkipSSLValidation bool   `yaml:"skip_ssl_validation"`
-	Credentials       struct {
-		UserName     string `yaml:"username,omitempty"`
-		Password     string `yaml:"password,omitempty"`
-		ClientID     string `yaml:"client-id,omitempty"`
-		ClientSecret string `yaml:"client-secret,omitempty"`
-	} `yaml:"credentials,omitempty"`
-	DecryptionPassphrase string `yaml:"decryption_passphrase"`
-}
-
 //Execute - generates structs
 func (c *CreateOpsmanAuth) Execute([]string) error {
-	authConfig := AuthConfig{
+	authConfig := opsman.AuthConfig{
 		OpsmanURL:            c.URL,
 		SkipSSLValidation:    c.SkipSSLValidation,
 		DecryptionPassphrase: c.DecryptionPassphrase,
