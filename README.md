@@ -82,21 +82,21 @@ Help Options:
 
 ## `pas-uaa`
 
-`pas-uaa` creates or updates uaa clients in PAS uaa based on configuration file
+`pas-uaa` creates or updates uaa clients in target uaa based on configuration file
 
 ### Command Usage
 
 ```
 Usage:
-  main [OPTIONS] pas-uaa [pas-uaa-OPTIONS]
+  pipeline-utilities [OPTIONS] uaa-configuration [uaa-configuration-OPTIONS]
 
 Help Options:
   -h, --help           Show this help message
 
-[pas-uaa command options]
-      --auth-file=      path to auth file (default: auth/auth.yml)
-  -c, --config=    path to config file
-  -l, --vars-file= path to vars file
+[uaa-configuration command options]
+          --auth-file= path to auth file (default: auth/auth.yml)
+      -c, --config=    path to config file
+      -l, --vars-file= path to vars file
 ```
 
 ### Sample Config
@@ -105,6 +105,8 @@ Help Options:
 target: uaa.((system-domain))
 skip_ssl_validation: true
 verbose: false
+deployment: cf
+uaa_admin_credential_property: .uaa.admin_client_credentials
 clients:
   foo:
     secret: ((foo-secret))

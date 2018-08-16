@@ -2,7 +2,6 @@ package opsman
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -60,7 +59,7 @@ func NewOpsManager(authFile string, logger *log.Logger) (*OpsManager, error) {
 	}, nil
 }
 
-func (o *OpsManager) PASUAAClient(target string, skipSSLValidation, verbose bool) (*uaa.API, error) {
+func (o *OpsManager) UAAClient(deployment, credentialPath, target string, skipSSLValidation, verbose bool) (*uaa.API, error) {
 	deployedProducts, err := o.om.ListDeployedProducts()
 	if err != nil {
 		return nil, err
@@ -68,18 +67,18 @@ func (o *OpsManager) PASUAAClient(target string, skipSSLValidation, verbose bool
 
 	var GUID string
 	for _, deployedProduct := range deployedProducts {
-		if strings.EqualFold(deployedProduct.Type, "cf") {
+		if strings.EqualFold(deployedProduct.Type, deployment) {
 			GUID = deployedProduct.GUID
 			continue
 		}
 	}
 
 	if GUID == "" {
-		return nil, errors.New("Deployed Product CF not found")
+		return nil, fmt.Errorf("Deployed Product %s not found", deployment)
 	}
 
 	output, err := o.om.Curl(api.RequestServiceCurlInput{
-		Path: fmt.Sprintf("/api/v0/deployed/products/%s/credentials/.uaa.admin_client_credentials", GUID),
+		Path: fmt.Sprintf("/api/v0/deployed/products/%s/credentials/%s", GUID, credentialPath),
 	})
 
 	if err != nil {

@@ -11,14 +11,14 @@ import (
 	yaml "gopkg.in/yaml.v2"
 )
 
-type PASUAA struct {
+type UAAConfiguration struct {
 	AuthFile   string   `long:"auth-file" description:"path to auth file" default:"auth/auth.yml"`
 	ConfigFile string   `long:"config" short:"c" required:"true" description:"path to config file"`
 	VarsFile   []string `long:"vars-file" short:"l" description:"path to vars file"`
 }
 
 //Execute - creates/updates specified uaa client within PAS uaa
-func (c *PASUAA) Execute([]string) error {
+func (c *UAAConfiguration) Execute([]string) error {
 
 	config := &UAAConfig{}
 	configBytes, err := common.Interpolate(c.ConfigFile, c.VarsFile)
@@ -35,7 +35,7 @@ func (c *PASUAA) Execute([]string) error {
 	if err != nil {
 		return err
 	}
-	uaaClient, err := om.PASUAAClient(config.Target, config.SkipSSLValidation, config.Verbose)
+	uaaClient, err := om.UAAClient(config.Deployment, config.UAAAdminCredentialProperty, config.Target, config.SkipSSLValidation, config.Verbose)
 	if err != nil {
 		return err
 	}
