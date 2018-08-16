@@ -1,6 +1,8 @@
 package commands
 
 import (
+	"fmt"
+
 	"github.com/pivotalservices/pipeline-utilities/common"
 	"github.com/pivotalservices/pipeline-utilities/opsman"
 )
@@ -18,6 +20,7 @@ type CreateOpsmanAuth struct {
 
 //Execute - generates structs
 func (c *CreateOpsmanAuth) Execute([]string) error {
+	fmt.Println("*******  WARNING DEPRECATED COMMAND - use om-env-file ************")
 	authConfig := opsman.AuthConfig{
 		OpsmanURL:            c.URL,
 		SkipSSLValidation:    c.SkipSSLValidation,

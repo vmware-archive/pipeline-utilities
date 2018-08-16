@@ -23,4 +23,4 @@
 
 [[constraint]]
   name = "github.com/pivotal-cf/om"
-  version = "0.38.0"
+  branch = "master"

@@ -80,10 +80,10 @@
   version = "v0.0.3"
 
 [[projects]]
+  branch = "master"
   name = "github.com/pivotal-cf/om"
   packages = ["api","network","progress"]
-  revision = "9ba75a5f9062010aa0027da9cef49d234ee21962"
-  version = "0.38.0"
+  revision = "6551c0a4b3b100cfd124b06b39c89c17db1db28b"
 
 [[projects]]
   name = "github.com/pkg/errors"
@@ -130,6 +130,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "215e4c1ebf3652e0030fae8c1d9849096ea49d4bda706e2f47aa26e098acde7f"
+  inputs-digest = "f15d16c6e630d50970853868ac3bb381dbf62505269fa9f179f305b53a5b83f5"
   solver-name = "gps-cdcl"
   solver-version = 1

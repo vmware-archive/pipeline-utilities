@@ -27,14 +27,14 @@ type uaaCreds struct {
 	} `json:"credential"`
 }
 
-func NewOpsManager(authFile string, logger *log.Logger) (*OpsManager, error) {
+func NewOpsManager(envFile string, logger *log.Logger) (*OpsManager, error) {
 
-	authConfig := &AuthConfig{}
-	authBytes, err := ioutil.ReadFile(authFile)
+	envConfig := &ENVConfig{}
+	envBytes, err := ioutil.ReadFile(envFile)
 	if err != nil {
 		return nil, err
 	}
-	err = yaml.Unmarshal(authBytes, authConfig)
+	err = yaml.Unmarshal(envBytes, envConfig)
 	if err != nil {
 		return nil, err
 	}
@@ -42,7 +42,7 @@ func NewOpsManager(authFile string, logger *log.Logger) (*OpsManager, error) {
 	connectTimeout := time.Duration(5) * time.Second
 
 	var authedClient httpClient
-	authedClient, err = network.NewOAuthClient(authConfig.OpsmanURL, authConfig.Credentials.UserName, authConfig.Credentials.Password, authConfig.Credentials.ClientID, authConfig.Credentials.ClientSecret, authConfig.SkipSSLValidation, false, requestTimeout, connectTimeout)
+	authedClient, err = network.NewOAuthClient(envConfig.Target, envConfig.UserName, envConfig.Password, envConfig.ClientID, envConfig.ClientSecret, envConfig.SkipSSLValidation, false, requestTimeout, connectTimeout)
 	if err != nil {
 		return nil, err
 	}
