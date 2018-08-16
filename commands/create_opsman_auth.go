@@ -1,6 +1,9 @@
 package commands
 
-import "github.com/pivotalservices/pipeline-utilities/opsman"
+import (
+	"github.com/pivotalservices/pipeline-utilities/common"
+	"github.com/pivotalservices/pipeline-utilities/opsman"
+)
 
 type CreateOpsmanAuth struct {
 	URL                  string `long:"url" env:"OPSMAN_URL" description:"OpsManager URL" required:"true"`
@@ -26,5 +29,5 @@ func (c *CreateOpsmanAuth) Execute([]string) error {
 	authConfig.Credentials.ClientID = c.ClientID
 	authConfig.Credentials.ClientSecret = c.ClientSecret
 
-	return writeYamlFile(c.OutputFile, &authConfig)
+	return common.WriteYamlFile(c.OutputFile, &authConfig)
 }

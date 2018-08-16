@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/pivotalservices/pipeline-utilities/common"
 )
 
 type EnvironmentToYAML struct {
@@ -23,7 +25,7 @@ func (c *EnvironmentToYAML) Execute([]string) error {
 		}
 	}
 	if len(dataType) > 0 {
-		return writeYamlFile(c.OutputFile, dataType)
+		return common.WriteYamlFile(c.OutputFile, dataType)
 	}
 	return fmt.Errorf("No environment variables with prefix: %s", c.EnvPrefix)
 }

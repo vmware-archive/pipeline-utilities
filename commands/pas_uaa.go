@@ -5,10 +5,10 @@ import (
 	"log"
 	"os"
 
-	"gopkg.in/yaml.v2"
-
 	"github.com/cloudfoundry-community/go-uaa"
+	"github.com/pivotalservices/pipeline-utilities/common"
 	"github.com/pivotalservices/pipeline-utilities/opsman"
+	yaml "gopkg.in/yaml.v2"
 )
 
 type PASUAA struct {
@@ -21,7 +21,7 @@ type PASUAA struct {
 func (c *PASUAA) Execute([]string) error {
 
 	config := &UAAConfig{}
-	configBytes, err := interpolate(c.ConfigFile, c.VarsFile)
+	configBytes, err := common.Interpolate(c.ConfigFile, c.VarsFile)
 	if err != nil {
 		return err
 	}
