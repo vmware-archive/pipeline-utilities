@@ -22,7 +22,7 @@ run:
   - |
       set -eux
 
-      git clone secrets git-committed-state
+      git clone state git-committed-state
       cp generated-state/state.yml git-committed-state/state.yml
 
       pushd git-committed-state
