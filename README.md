@@ -111,9 +111,9 @@ Help Options:
   --output-file=           output file for yaml
 ```
 
-## `pas-uaa`
+## `uaa-configuration`
 
-`pas-uaa` creates or updates uaa clients in target uaa based on configuration file
+`uaa-configuration` creates or updates uaa clients in target uaa based on configuration file
 
 ### Command Usage
 
