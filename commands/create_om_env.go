@@ -40,6 +40,7 @@ func (c *CreateOMEnvironmentFile) Execute([]string) error {
 	envConfig.ClientSecret = c.ClientSecret
 	envConfig.ConnectTimeout = c.ConnectTimeout
 	envConfig.RequestTimeout = c.RequestTimeout
+	envConfig.DecryptionPassphrase = c.DecryptionPassphrase
 
 	if c.SAMLConfiguration != nil {
 		envConfig.SAMLConfiguration.IDPMetadata = c.SAMLConfiguration.IDPMetadata
