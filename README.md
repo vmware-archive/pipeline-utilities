@@ -55,8 +55,39 @@ Help Options:
   --output-file=        output file for yaml
 ```
 
+## `om-env-file`
 
-## `opsman-auth`
+`om-env-file` uses flags/environment variables to build a auth.yml that can be used with `om`
+
+### Command Usage
+
+```
+Usage:
+  pipeline-utilities [OPTIONS] om-env-file [om-env-file-OPTIONS]
+
+Help Options:
+  -h, --help                       Show this help message
+
+[om-env-file command options]
+    --target=                OpsManager hostname [$OPSMAN_TARGET]
+    --skip-ssl-validation    Skip SSL Validation when interacting with OpsManager [$OPSMAN_SKIP_SSL_VALIDATION]
+    --username=              OpsManager username [$OPSMAN_USERNAME]
+    --password=              OpsManager password [$OPSMAN_PASSWORD]
+    --client-id=             OpsManager client id [$OPSMAN_CLIENTID]
+    --client-secret=         OpsManager client secret [$OPSMAN_CLIENT_SECRET]
+    --decryption-passphrase= OpsManager Decryption Passphrase [$OPSMAN_DECRYPTION_PASSPHRASE]
+    --connect-timeout=       OpsManager Connect timeout (default: 5) [$OPSMAN_CONNECT_TIMEOUT]
+    --request-timeout=       OpsManager Request timeout (default: 1800) [$OPSMAN_REQUEST_TIMEOUT]
+    --output-file=           output file for yaml
+
+    SAML:
+    --idp-metadata=          OpsManager SAML IDP Metadata [$OPSMAN_SAML_IDP_METADATA]
+    --bosh-idp-metadata=     OpsManager SAML BOSH IDP Metadata [$OPSMAN_SAML_BOSH_IDP_METADATA]
+    --rbac-admin-group=      OpsManager RBAC admin group [$OPSMAN_RBAC_ADMIN_GROUP]
+    --rbac-groups-attribute= OpsManager RBAC groups attribute [$OPSMAN_RBAC_GROUPS_ATTRIBUTE]
+```
+
+## `opsman-auth *** deprecated`
 
 `opsman-auth` uses flags/environment variables to build a auth.yml that can be used with PCF Automation tooling
 
