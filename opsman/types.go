@@ -23,7 +23,7 @@ type ENVConfig struct {
 	RequestTimeout       int    `yaml:"request-timeout,omitempty"`
 	ClientID             string `yaml:"client-id,omitempty"`
 	ClientSecret         string `yaml:"client-secret,omitempty"`
-	DecryptionPassphrase string `yaml:"decryption_passphrase,omitempty"`
+	DecryptionPassphrase string `yaml:"decryption-passphrase,omitempty"`
 	SAMLConfiguration    struct {
 		IDPMetadata         string `yaml:"idp-metadata,omitempty"`
 		BOSHIDPMetadata     string `yaml:"bosh-idp-metadata,omitempty"`

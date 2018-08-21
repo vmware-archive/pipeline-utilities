@@ -40,7 +40,6 @@ func (c *CreateOMEnvironmentFile) Execute([]string) error {
 	envConfig.ClientSecret = c.ClientSecret
 	envConfig.ConnectTimeout = c.ConnectTimeout
 	envConfig.RequestTimeout = c.RequestTimeout
-	envConfig.DecryptionPassphrase = c.DecryptionPassphrase
 
 	if c.SAMLConfiguration != nil {
 		envConfig.SAMLConfiguration.IDPMetadata = c.SAMLConfiguration.IDPMetadata
@@ -51,20 +50,4 @@ func (c *CreateOMEnvironmentFile) Execute([]string) error {
 
 	return common.WriteYamlFile(c.OutputFile, &envConfig)
 
-	// target: ((opsman_hostname))
-	// username: ((username))
-	// password: ((password))
-	// connect-timeout: ((connect_timeout))         # default 5
-	// request-timeout: ((request_timeout))         # default 1800
-	// skip-ssl-validation: ((skip_ssl_validation)) # default false
-	// decryption-passphrase: ((decryption_passphrase))
-	//
-	// ## SAML Authentication Only
-	// client-id: ((client_id))
-	// client-secret: ((client_secret))
-	// saml-configuration:
-	//   idp-metadata: ((idp_metadata))
-	//   bosh-idp-metadata: ((bosh_idp_metadata))
-	//   rbac-admin-group: ((rbac_admin_group))
-	//   rbac-groups-attribute: ((rbac_groups_attribute))
 }
