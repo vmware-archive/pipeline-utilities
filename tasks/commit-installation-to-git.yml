@@ -1,0 +1,35 @@
+---
+platform: linux
+image_resource:
+  type: docker-image
+  source:
+    repository: pivotalservices/pipeline-utilities
+
+inputs:
+- name: state
+- name: installation
+outputs:
+- name: git-committed-installation
+params:
+  GIT_COMMIT_USERNAME:
+  GIT_COMMIT_EMAIL:
+  GIT_COMMIT_MESSAGE:
+
+run:
+  path: bash
+  args:
+  - "-c"
+  - |
+      set -eux
+
+      git clone state git-committed-installation
+      cp installation/installation.zip git-committed-installation/installation.zip
+
+      pushd git-committed-installation
+        if [[ -n $(git status --porcelain) ]]; then
+          git config user.name "${GIT_COMMIT_USERNAME}"
+          git config user.email "${GIT_COMMIT_EMAIL}"
+          git add --all .
+          git commit -m "${GIT_COMMIT_MESSAGE}"
+        fi
+      popd
