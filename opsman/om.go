@@ -14,6 +14,7 @@ import (
 	yaml "gopkg.in/yaml.v2"
 )
 
+// OpsManager points to an OpsMan API instance
 type OpsManager struct {
 	om api.Api
 }
@@ -27,14 +28,15 @@ type uaaCreds struct {
 	} `json:"credential"`
 }
 
+// NewOpsManager creates a new OpsManager instance
 func NewOpsManager(envFile string, logger *log.Logger) (*OpsManager, error) {
 
-	envConfig := &ENVConfig{}
+	OmEnvConfig := &OmEnvConfig{}
 	envBytes, err := ioutil.ReadFile(envFile)
 	if err != nil {
 		return nil, err
 	}
-	err = yaml.Unmarshal(envBytes, envConfig)
+	err = yaml.Unmarshal(envBytes, OmEnvConfig)
 	if err != nil {
 		return nil, err
 	}
@@ -42,7 +44,7 @@ func NewOpsManager(envFile string, logger *log.Logger) (*OpsManager, error) {
 	connectTimeout := time.Duration(5) * time.Second
 
 	var authedClient httpClient
-	authedClient, err = network.NewOAuthClient(envConfig.Target, envConfig.UserName, envConfig.Password, envConfig.ClientID, envConfig.ClientSecret, envConfig.SkipSSLValidation, false, requestTimeout, connectTimeout)
+	authedClient, err = network.NewOAuthClient(OmEnvConfig.Target, OmEnvConfig.UserName, OmEnvConfig.Password, OmEnvConfig.ClientID, OmEnvConfig.ClientSecret, OmEnvConfig.SkipSSLValidation, false, requestTimeout, connectTimeout)
 	if err != nil {
 		return nil, err
 	}
@@ -59,6 +61,7 @@ func NewOpsManager(envFile string, logger *log.Logger) (*OpsManager, error) {
 	}, nil
 }
 
+// UAAClient creates a new UAA API client
 func (o *OpsManager) UAAClient(deployment, credentialPath, target string, skipSSLValidation, verbose bool) (*uaa.API, error) {
 	deployedProducts, err := o.om.ListDeployedProducts()
 	if err != nil {
