@@ -1,0 +1,44 @@
+resources:
+- name: pipeline-utilities
+  type: git
+  source:
+    uri: https://github.com/pivotalservices/pipeline-utilities.git
+
+jobs:
+- name: sample
+  plan:
+  - aggregate:
+    - get: pipeline-utilities
+
+  - task: create-auth-file
+    file: pipeline-utilities/tasks/create-auth-file.yml
+    params:
+      OPSMAN_DECRYPTION_PASSPHRASE: decryptsecret
+      OPSMAN_SAML_IDP_METADATA: <xml/>
+      OPSMAN_SAML_BOSH_IDP_METADATA: <xml/>
+      OPSMAN_RBAC_ADMIN_GROUP: SG_OpsMan
+      OPSMAN_RBAC_GROUPS_ATTRIBUTE: role
+
+  - task: create-env-file
+    file: pipeline-utilities/tasks/create-env-file.yml
+    params:
+      OPSMAN_TARGET: opsman.example.com
+      OPSMAN_CONNECT_TIMEOUT: 1600
+      OPSMAN_REQUEST_TIMEOUT: 600
+      OPSMAN_SKIP_SSL_VALIDATION: true
+      OPSMAN_CLIENTID: concourse
+      OPSMAN_CLIENT_SECRET: supersecret
+
+  - task: echo auth sample
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: pivotalservices/pipeline-utilities
+      inputs:
+      - name: config
+      - name: env
+      run:
+        path: cat
+        args: [ "config/auth.yml", "env/env.yml" ]
