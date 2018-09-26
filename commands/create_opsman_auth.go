@@ -7,6 +7,7 @@ import (
 	"github.com/pivotalservices/pipeline-utilities/opsman"
 )
 
+// CreateOpsmanAuth to create a deprecated auth.yml
 type CreateOpsmanAuth struct {
 	URL                  string `long:"url" env:"OPSMAN_URL" description:"OpsManager URL" required:"true"`
 	SkipSSLValidation    bool   `long:"skip-ssl-validation" env:"OPSMAN_SKIP_SSL_VALIDATION" description:"Skip SSL Validation when interacting with OpsManager"`
@@ -18,19 +19,19 @@ type CreateOpsmanAuth struct {
 	OutputFile           string `long:"output-file" description:"output file for yaml" required:"true"`
 }
 
-//Execute - generates structs
+// Execute - generates structs
 func (c *CreateOpsmanAuth) Execute([]string) error {
-	fmt.Println("*******  WARNING DEPRECATED COMMAND - use om-env-file ************")
-	authConfig := opsman.AuthConfig{
+	fmt.Println("******* WARNING DEPRECATED COMMAND - use env-file and auth-file ************")
+	omAuthConfig := opsman.OmAuthConfig{
 		OpsmanURL:            c.URL,
 		SkipSSLValidation:    c.SkipSSLValidation,
 		DecryptionPassphrase: c.DecryptionPassphrase,
 	}
 
-	authConfig.Credentials.UserName = c.Username
-	authConfig.Credentials.Password = c.Password
-	authConfig.Credentials.ClientID = c.ClientID
-	authConfig.Credentials.ClientSecret = c.ClientSecret
+	omAuthConfig.Credentials.UserName = c.Username
+	omAuthConfig.Credentials.Password = c.Password
+	omAuthConfig.Credentials.ClientID = c.ClientID
+	omAuthConfig.Credentials.ClientSecret = c.ClientSecret
 
-	return common.WriteYamlFile(c.OutputFile, &authConfig)
+	return common.WriteYamlFile(c.OutputFile, &omAuthConfig)
 }

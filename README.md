@@ -55,7 +55,55 @@ Help Options:
   --output-file=        output file for yaml
 ```
 
-## `om-env-file`
+## `auth-file`
+
+`auth-file` uses flags/environment variables to build an auth.yml that can be used with [PCF Automation](http://docs-platform-automation.cfapps.io/pcf-automation/task-reference.html#auth) or the `om --config` flag.
+
+```
+Usage:
+  pipeline-utilities [OPTIONS] env-file [env-file-OPTIONS]
+
+Help Options:
+  -h, --help                     Show this help message
+
+[env-file command options]
+          --target=              OpsManager hostname [$OPSMAN_TARGET]
+          --skip-ssl-validation  Skip SSL Validation when interacting with OpsManager [$OPSMAN_SKIP_SSL_VALIDATION]
+          --username=            OpsManager username [$OPSMAN_USERNAME]
+          --password=            OpsManager password [$OPSMAN_PASSWORD]
+          --client-id=           OpsManager client id [$OPSMAN_CLIENTID]
+          --client-secret=       OpsManager client secret [$OPSMAN_CLIENT_SECRET]
+          --connect-timeout=     OpsManager Connect timeout (default: 5) [$OPSMAN_CONNECT_TIMEOUT]
+          --request-timeout=     OpsManager Request timeout (default: 1800) [$OPSMAN_REQUEST_TIMEOUT]
+          --output-file=         output file for yaml (default: env.yml)
+          --trace                Prints HTTP requests and response payloads [$OPSMAN_TRACE]
+```
+
+## `env-file`
+
+`env-file` uses flags/environment variables to build an env.yml that can be used with [PCF Automation](http://docs-platform-automation.cfapps.io/pcf-automation/task-reference.html#env) or the `om --env` flag.
+
+```
+Usage:
+  pipeline-utilities [OPTIONS] env-file [env-file-OPTIONS]
+
+Help Options:
+  -h, --help                     Show this help message
+
+[env-file command options]
+          --target=              OpsManager hostname [$OPSMAN_TARGET]
+          --skip-ssl-validation  Skip SSL Validation when interacting with OpsManager [$OPSMAN_SKIP_SSL_VALIDATION]
+          --username=            OpsManager username [$OPSMAN_USERNAME]
+          --password=            OpsManager password [$OPSMAN_PASSWORD]
+          --client-id=           OpsManager client id [$OPSMAN_CLIENTID]
+          --client-secret=       OpsManager client secret [$OPSMAN_CLIENT_SECRET]
+          --connect-timeout=     OpsManager Connect timeout (default: 5) [$OPSMAN_CONNECT_TIMEOUT]
+          --request-timeout=     OpsManager Request timeout (default: 1800) [$OPSMAN_REQUEST_TIMEOUT]
+          --output-file=         output file for yaml (default: env.yml)
+          --trace                Prints HTTP requests and response payloads [$OPSMAN_TRACE]
+```
+
+## `om-env-file *** deprecated`
 
 `om-env-file` uses flags/environment variables to build a auth.yml that can be used with `om`
 

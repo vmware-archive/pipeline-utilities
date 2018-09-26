@@ -1,6 +1,8 @@
 package commands
 
 import (
+	"fmt"
+
 	"github.com/pivotalservices/pipeline-utilities/common"
 	"github.com/pivotalservices/pipeline-utilities/opsman"
 )
@@ -19,6 +21,7 @@ type CreateOMEnvironmentFile struct {
 	OutputFile           string             `long:"output-file" description:"output file for yaml" required:"true"`
 }
 
+// SAMLConfiguration used to configure SAML auth on OpsMan
 type SAMLConfiguration struct {
 	IDPMetadata         string `long:"idp-metadata" env:"OPSMAN_SAML_IDP_METADATA" description:"OpsManager SAML IDP Metadata"`
 	BOSHIDPMetadata     string `long:"bosh-idp-metadata" env:"OPSMAN_SAML_BOSH_IDP_METADATA" description:"OpsManager SAML BOSH IDP Metadata"`
@@ -28,26 +31,27 @@ type SAMLConfiguration struct {
 
 //Execute - creates om env
 func (c *CreateOMEnvironmentFile) Execute([]string) error {
-	envConfig := opsman.ENVConfig{
+	fmt.Println("******* WARNING DEPRECATED COMMAND - use env-file and auth-file ************")
+	omEnvConfig := opsman.OmEnvConfig{
 		Target:               c.Target,
 		SkipSSLValidation:    c.SkipSSLValidation,
 		DecryptionPassphrase: c.DecryptionPassphrase,
 	}
 
-	envConfig.UserName = c.Username
-	envConfig.Password = c.Password
-	envConfig.ClientID = c.ClientID
-	envConfig.ClientSecret = c.ClientSecret
-	envConfig.ConnectTimeout = c.ConnectTimeout
-	envConfig.RequestTimeout = c.RequestTimeout
+	omEnvConfig.UserName = c.Username
+	omEnvConfig.Password = c.Password
+	omEnvConfig.ClientID = c.ClientID
+	omEnvConfig.ClientSecret = c.ClientSecret
+	omEnvConfig.ConnectTimeout = c.ConnectTimeout
+	omEnvConfig.RequestTimeout = c.RequestTimeout
 
 	if c.SAMLConfiguration != nil {
-		envConfig.SAMLConfiguration.IDPMetadata = c.SAMLConfiguration.IDPMetadata
-		envConfig.SAMLConfiguration.BOSHIDPMetadata = c.SAMLConfiguration.BOSHIDPMetadata
-		envConfig.SAMLConfiguration.RBACAdminGroup = c.SAMLConfiguration.RBACAdminGroup
-		envConfig.SAMLConfiguration.RBACGroupsAttribute = c.SAMLConfiguration.RBACGroupsAttribute
+		omEnvConfig.SAMLConfiguration.IDPMetadata = c.SAMLConfiguration.IDPMetadata
+		omEnvConfig.SAMLConfiguration.BOSHIDPMetadata = c.SAMLConfiguration.BOSHIDPMetadata
+		omEnvConfig.SAMLConfiguration.RBACAdminGroup = c.SAMLConfiguration.RBACAdminGroup
+		omEnvConfig.SAMLConfiguration.RBACGroupsAttribute = c.SAMLConfiguration.RBACGroupsAttribute
 	}
 
-	return common.WriteYamlFile(c.OutputFile, &envConfig)
+	return common.WriteYamlFile(c.OutputFile, &omEnvConfig)
 
 }
