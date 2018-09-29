@@ -7,10 +7,10 @@ type AuthConfig struct {
 	UserName             string `yaml:"username,omitempty"`
 	Password             string `yaml:"password,omitempty"`
 	DecryptionPassphrase string `yaml:"decryption-passphrase"`
-	IDPMetadata          string `yaml:"idp-metadata,omitempty"`
-	BOSHIDPMetadata      string `yaml:"bosh-idp-metadata,omitempty"`
-	RBACAdminGroup       string `yaml:"rbac-admin-group,omitempty"`
-	RBACGroupsAttribute  string `yaml:"rbac-groups-attribute,omitempty"`
+	IDPMetadata          string `yaml:"saml-idp-metadata,omitempty"`
+	BOSHIDPMetadata      string `yaml:"saml-bosh-idp-metadata,omitempty"`
+	RBACAdminGroup       string `yaml:"saml-rbac-admin-group,omitempty"`
+	RBACGroupsAttribute  string `yaml:"saml-rbac-groups-attribute,omitempty"`
 }
 
 // EnvConfig used by the env-file command
