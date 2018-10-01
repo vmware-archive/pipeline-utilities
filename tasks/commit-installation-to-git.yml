@@ -14,6 +14,7 @@ params:
   GIT_COMMIT_USERNAME:
   GIT_COMMIT_EMAIL:
   GIT_COMMIT_MESSAGE:
+  INSTALL_FILE: installation.zip
 
 run:
   path: bash
@@ -23,7 +24,7 @@ run:
       set -eux
 
       git clone state git-committed-installation
-      cp installation/installation.zip git-committed-installation/installation.zip
+      cp installation/installation.zip "git-committed-installation/${INSTALL_FILE}"
 
       pushd git-committed-installation
         if [[ -n $(git status --porcelain) ]]; then
