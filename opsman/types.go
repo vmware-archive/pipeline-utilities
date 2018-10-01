@@ -11,6 +11,9 @@ type AuthConfig struct {
 	BOSHIDPMetadata      string `yaml:"saml-bosh-idp-metadata,omitempty"`
 	RBACAdminGroup       string `yaml:"saml-rbac-admin-group,omitempty"`
 	RBACGroupsAttribute  string `yaml:"saml-rbac-groups-attribute,omitempty"`
+	HTTPProxyURL         string `yaml:"http-proxy-url,omitempty"`
+	HTTPSProxyURL        string `yaml:"https-proxy-url,omitempty"`
+	NoProxy              string `yaml:"no-proxy,omitempty"`
 }
 
 // EnvConfig used by the env-file command

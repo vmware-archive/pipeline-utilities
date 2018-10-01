@@ -12,6 +12,9 @@ type CreateAuthFile struct {
 	Password             string             `long:"password" env:"OPSMAN_PASSWORD" description:"OpsManager password"`
 	DecryptionPassphrase string             `long:"decryption-passphrase" env:"OPSMAN_DECRYPTION_PASSPHRASE" description:"OpsManager Decryption Passphrase"`
 	SAMLConfiguration    *SAMLConfiguration `group:"SAML"`
+	HTTPProxyURL         string             `long:"http-proxy-url" env:"OPSMAN_HTTP_PROXY_URL" description:"proxy for outbound HTTP network traffic"`
+	HTTPSProxyURL        string             `long:"https-proxy-url" env:"OPSMAN_HTTPS_PROXY_URL" description:"proxy for outbound HTTPS network traffic"`
+	NoProxy              string             `long:"no-proxy"    env:"OPSMAN_NO_PROXY" description:"comma-separated list of hosts that do not go through the proxy"`
 	OutputFile           string             `long:"output-file" description:"output file for yaml" default:"auth.yml"`
 }
 
@@ -21,6 +24,9 @@ func (c *CreateAuthFile) Execute([]string) error {
 		DecryptionPassphrase: c.DecryptionPassphrase,
 		UserName:             c.Username,
 		Password:             c.Password,
+		HTTPProxyURL:         c.HTTPProxyURL,
+		HTTPSProxyURL:        c.HTTPSProxyURL,
+		NoProxy:              c.NoProxy,
 	}
 
 	if c.SAMLConfiguration != nil {
