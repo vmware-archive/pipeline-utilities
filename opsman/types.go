@@ -18,15 +18,16 @@ type AuthConfig struct {
 
 // EnvConfig used by the env-file command
 type EnvConfig struct {
-	Target            string `yaml:"target"`
-	SkipSSLValidation bool   `yaml:"skip-ssl-validation"`
-	UserName          string `yaml:"username,omitempty"`
-	Password          string `yaml:"password,omitempty"`
-	ConnectTimeout    int    `yaml:"connect-timeout,omitempty"`
-	RequestTimeout    int    `yaml:"request-timeout,omitempty"`
-	ClientID          string `yaml:"client-id,omitempty"`
-	ClientSecret      string `yaml:"client-secret,omitempty"`
-	Trace             bool   `yaml:"trace"`
+	Target               string `yaml:"target"`
+	SkipSSLValidation    bool   `yaml:"skip-ssl-validation"`
+	UserName             string `yaml:"username,omitempty"`
+	Password             string `yaml:"password,omitempty"`
+	ConnectTimeout       int    `yaml:"connect-timeout,omitempty"`
+	RequestTimeout       int    `yaml:"request-timeout,omitempty"`
+	ClientID             string `yaml:"client-id,omitempty"`
+	ClientSecret         string `yaml:"client-secret,omitempty"`
+	Trace                bool   `yaml:"trace"`
+	DecryptionPassphrase string `yaml:"decryption-passphrase"`
 }
 
 // OmAuthConfig used by the deprecated opsman-auth command
