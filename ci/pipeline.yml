@@ -38,6 +38,11 @@ resources:
     password: {{docker-registry-password}}
     tag: {{docker-tag}}
 
+- name: base-docker-image
+  type: docker-image
+  source:
+    repository: alpine
+
 jobs:
 - name: test-and-build
   plan:
@@ -60,6 +65,12 @@ jobs:
   plan:
     - aggregate:
       - get: source
+      - get: base-docker-image
+        trigger: true
+        params:
+          save: false
+          rootfs: false
+          skip_download: true
       - get: releases
         trigger: true
         params:
